@@ -134,7 +134,7 @@ git --version
 $ git config --global user.email "broqiang@qq.com"
 
 # 用户名改成实际的
-$ git config --global user.name "Bro Qiang"
+$ git config --global user.name "hao.wu"
 
 ```
 

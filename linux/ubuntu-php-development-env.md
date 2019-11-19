@@ -131,7 +131,7 @@ sudo apt install -f
 ```bash
 # 提交数据的时候的用户邮箱和用户名
 git config --global user.email "broqiang@qq.com"
-git config --global user.name "Bro Qiang"
+git config --global user.name "hao.wu"
 # 保存密码
 git config --global credential.helper store
 

@@ -191,7 +191,7 @@ func main() {
 	// 方式一，直接通过 Post 函数
 	fmt.Println("------------- 方法一 ---------------")
 	resp, err := http.Post(url,"application/x-www-form-urlencoded",
-		strings.NewReader("name=Bro Qiang"))
+		strings.NewReader("name=hao.wu"))
 	ErrPrint(err)
 	defer resp.Body.Close()
 
@@ -201,7 +201,7 @@ func main() {
 	fmt.Println("------------- 方法二 ---------------")
 	client := &http.Client{}
 	resp, err = client.Post(url,"application/x-www-form-urlencoded",
-		strings.NewReader("name=New Bro Qiang"))
+		strings.NewReader("name=New hao.wu"))
 	ErrPrint(err)
 	defer resp.Body.Close()
 
@@ -317,7 +317,7 @@ import (
 const url = "http://localhost:8080/form"
 
 func main() {
-	data := map[string][]string{"name": {"Bro Qiang"}, "gender": {"male"}}
+	data := map[string][]string{"name": {"hao.wu"}, "gender": {"male"}}
 
 	// 方法一：PostForm 函数
 	resp, err := http.PostForm(url, data)
