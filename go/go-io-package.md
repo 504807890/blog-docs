@@ -5,7 +5,7 @@ github_url = "https://sorrycloud.com"
 head_img = ""
 created_at = 2019-11-22T01:09:25
 updated_at = 2019-11-22T01:15:57
-description = "go io 包缓冲区并发是用到 io 包,记录下心得。"
+description = "go io 包缓冲区并发时用到 io 包,记录下心得。"
 tags = ["go"]
 +++
 
@@ -16,7 +16,7 @@ tags = ["go"]
 在 Go 中，输入和输出操作是使用接口实现的，这些接口将数据模拟成可读的或可写的字节流。
 为此，Go 的 `io` 包提供了 `io.Reader` 和 `io.Writer` 接口，分别用于数据的输入和输出，如图：
 
-![`io.Reader` 和 `io.Writer` 工作流程](https://github.com/504807890/blog-docs/tree/master/pic/go-io-package-1.png)
+![`io.Reader` 和 `io.Writer` 工作流程](https://github.com/504807890/blog-docs/blob/master/pic/go-io-package-1.png?raw=true)
 
 Go 官方提供了一些 API，支持对内存结构，文件，网络连接等资源进行操作
 本文重点介绍如何实现标准库中 `io.Reader` 和 `io.Writer` 两个接口，来完成流式传输数据。
@@ -26,7 +26,7 @@ Go 官方提供了一些 API，支持对内存结构，文件，网络连接等�
 `io.Reader` 表示一个读取器，它将数据从某个资源读取到传输缓冲区。在缓冲区中，数据可以被流式传输和使用。
 如图：
 
-![`io.Reader` 工作流程](https://github.com/504807890/blog-docs/tree/master/pic/go-io-package-2.png)
+![`io.Reader` 工作流程](https://github.com/504807890/blog-docs/blob/master/pic/go-io-package-2.png?raw=true)
 
 对于要用作读取器的类型，它必须实现 `io.Reader` 接口的唯一一个方法 `Read(p []byte)`。
 换句话说，只要实现了 `Read(p []byte)` ，那它就是一个读取器。
@@ -80,7 +80,7 @@ EOF: 0
 
 可以看到，最后一次返回的 n 值有可能小于缓冲区大小。
 
-#### 自己实现一个 Reader
+### 自己实现一个 Reader
 
 上一节是使用标准库中的 `io.Reader` 读取器实现的。
 现在，让我们看看如何自己实现一个。它的功能是从流中过滤掉非字母字符。
@@ -157,7 +157,7 @@ func main() {
 HelloItsamwhereisthesun
 ```
 
-#### 组合多个Reader
+### 组合多个Reader
 >目的是重用和屏蔽下层实现的复杂度
 
 标准库已经实现了许多 `Reader`。
@@ -246,7 +246,7 @@ func main() {
 
 `io.Writer` 表示一个编写器，它从缓冲区读取数据，并将数据写入目标资源。
 
-![`io.Writer` 工作流程](https://github.com/504807890/blog-docs/tree/master/pic/go-io-package-3.png)
+![`io.Writer` 工作流程](https://github.com/504807890/blog-docs/blob/master/pic/go-io-package-3.png?raw=true)
 
 对于要用作编写器的类型，必须实现 `io.Writer` 接口的唯一一个方法 `Write(p []byte)`
 同样，只要实现了 `Write(p []byte)` ，那它就是一个编写器。
@@ -259,7 +259,7 @@ type Writer interface {
 
 `Write()` 方法有两个返回值，一个是写入到目标资源的字节数，一个是发生错误时的错误。
 
-#### 使用 Writer
+### 使用 Writer
 
 标准库提供了许多已经实现了 `io.Writer` 的类型。
 下面是一个简单的例子，它使用 `bytes.Buffer` 类型作为 `io.Writer` 将数据写入内存缓冲区。
@@ -294,7 +294,7 @@ func main() {
 输出打印的内容：
 Channels orchestrate mutexes serializeCgo is not GoErrors are valuesDon't panic
 ```
-#### 自己实现一个 Writer
+### 自己实现一个 Writer
 下面我们来实现一个名为 `chanWriter` 的自定义 `io.Writer` ，它将其内容作为字节序列写入 `channel` 。
 
 ```go
@@ -346,7 +346,7 @@ func main() {
 ## `io` 包里其他有用的类型和方法
 >如前所述，Go标准库附带了许多有用的功能和类型，让我们可以轻松使用流式io。
 
-#### `os.File`
+### `os.File`
 类型 `os.File` 表示本地系统上的文件。它实现了 `io.Reader` 和 `io.Writer` ，因此可以在任何 `io` 上下文中使用。
 例如，下面的例子展示如何将连续的字符串切片直接写入文件：
 
@@ -404,7 +404,7 @@ func main() {
 }
 ```
 
-#### `标准输入、输出和错误`
+### `标准输入、输出和错误`
 `os` 包有三个可用变量 `os.Stdout` ，`os.Stdin` 和 `os.Stderr` ，它们的类型为 `*os.File`，分别代表 系统标准输入，系统标准输出 和 系统标准错误 的文件句柄。
 例如，下面的代码直接打印到标准输出：
 
@@ -432,7 +432,7 @@ func main() {
 }
 ```
 
-#### `io.Copy()`
+### `io.Copy()`
 `io.Copy()` 可以轻松地将数据从一个 `Reader` 拷贝到另一个 `Writer`。
 它抽象出 `for` 循环模式（我们上面已经实现了）并正确处理 `io.EOF` 和 字节计数。
 下面是我们之前实现的简化版本：
@@ -479,7 +479,7 @@ func main() {
 }
 ```
 
-#### `io.WriteString()`
+### `io.WriteString()`
 此函数让我们方便地将字符串类型写入一个 Writer：
 
 ```go
@@ -497,7 +497,7 @@ func main() {
 }
 ```
 
-#### `使用管道的 Writer 和 Reader`
+### `使用管道的 Writer 和 Reader`
 
 类型 `io.PipeWriter` 和 `io.PipeReader` 在内存管道中模拟 `io` 操作。
 数据被写入管道的一端，并使用单独的 `goroutine` 在管道的另一端读取。
@@ -525,7 +525,7 @@ func main() {
 }
 ```
 
-#### `缓冲区 io`
+### `缓冲区 io`
 标准库中 `bufio` 包支持 缓冲区 `io` 操作，可以轻松处理文本内容。
 例如，以下程序逐行读取文件的内容，并以值 `'\n'` 分隔：
 
@@ -555,7 +555,7 @@ func main() {
 }
 ```
 
-#### `ioutil`
+### `ioutil`
 `io` 包下面的一个子包 `utilio` 封装了一些非常方便的功能
 例如，下面使用函数 `ReadFile` 将文件内容加载到 `[]byte` 中。
 
