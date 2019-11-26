@@ -3,8 +3,8 @@ title = "Go 中 io.pipe 的源码浅析"
 author = "hao.wu"
 github_url = "https://sorrycloud.com"
 head_img = ""
-created_at = 2019-16-22T01:09:25
-updated_at = 2019-16-22T01:15:57
+created_at = 2019-11-26T01:09:25
+updated_at = 2019-11-26T01:15:57
 description = "go io.pipe 实现了单通道的读写同步.读者写者问题"
 tags = ["go"]
 +++
