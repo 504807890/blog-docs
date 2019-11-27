@@ -13,7 +13,8 @@ tags = ["go"]
 这个库可以类似于OS中经典的线程同步问题：
 读者-写者问题。写者向数据池不断存放数据，读者不断从池中读取数据。
 当然，这与经典OS的读者写者有明显的差异，这是对于字节流的操作，不是某个资源的操作。
->以下是源代码库的笔记，源代码地址：[io.pipe源码](https://golang.org/src/io/pipe.go)
+
+> 以下是源代码库的笔记，源代码地址：[io.pipe源码](https://golang.org/src/io/pipe.go)
 
 ```go
 // Copyright 2009 The Go Authors. All rights reserved.
